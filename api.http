@@ -1,0 +1,24 @@
+@baseUrl = http://localhost:3333
+# @authToken = {{authenticate.response.body.access_token}}
+
+# @name create_user
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "Usuário Teste",
+  "email": "teste@teste.com.br",
+  "password": "123456"
+}
+
+### ROTA AUTORIZADA
+
+# # @name create_question
+# POST {{baseUrl}}/questions
+# Content-Type: application/json
+# Authorization: Bearer {{authToken}}
+
+# {
+#   "title": "Nova pergunta 2",
+#   "content": "Teste"
+# }
