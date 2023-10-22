@@ -1,6 +1,6 @@
-import { Entity } from '@/domain/core/entities/entity';
-import { UniqueEntityId } from '@/domain/core/entities/value-objects/unique-entity-id';
-import { Optional } from '@/domain/core/types/optional';
+import { Entity } from '@/core/entities/entity';
+import { UniqueEntityId } from '@/core/entities/value-objects/unique-entity-id';
+import { Optional } from '@/core/types/optional';
 
 export interface UserProps {
   name: string;

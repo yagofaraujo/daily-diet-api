@@ -1,4 +1,4 @@
-import { Either, right } from '@/domain/core/either';
+import { Either, right } from '@/core/either';
 import { Meal } from '@/domain/entities/Meal';
 import { IMealsRepository } from './ports/meals-repository';
 

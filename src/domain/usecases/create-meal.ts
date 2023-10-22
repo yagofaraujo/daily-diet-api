@@ -1,5 +1,5 @@
-import { Either, right } from '@/domain/core/either';
-import { UniqueEntityId } from '@/domain/core/entities/value-objects/unique-entity-id';
+import { Either, right } from '@/core/either';
+import { UniqueEntityId } from '@/core/entities/value-objects/unique-entity-id';
 import { Meal } from '@/domain/entities/Meal';
 import { IMealsRepository } from './ports/meals-repository';
 

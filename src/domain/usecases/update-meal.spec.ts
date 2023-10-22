@@ -2,9 +2,9 @@ import { InMemoryMealsRepository } from '@/test/database/in-memory-meals-reposit
 import { UpdateMealUseCase, IUpdateMealRequest } from './update-meal';
 import { makeUser } from '@/test/factories/make-user';
 import { makeMeal } from '@/test/factories/make-meal';
-import { UniqueEntityId } from '@/domain/core/entities/value-objects/unique-entity-id';
-import { NotAllowedError } from '@/domain/core/errors/not-allowed-error';
-import { ResourceNotFoundError } from '@/domain/core/errors/resource-not-found-error';
+import { UniqueEntityId } from '@/core/entities/value-objects/unique-entity-id';
+import { NotAllowedError } from '@/core/errors/not-allowed-error';
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
 
 let inMemoryMealsRepository: InMemoryMealsRepository;
 let sut: UpdateMealUseCase;

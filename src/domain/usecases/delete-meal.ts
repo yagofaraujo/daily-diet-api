@@ -1,7 +1,7 @@
-import { Either, left, right } from '@/domain/core/either';
+import { Either, left, right } from '@/core/either';
 import { IMealsRepository } from './ports/meals-repository';
-import { ResourceNotFoundError } from '../core/errors/resource-not-found-error';
-import { NotAllowedError } from '../core/errors/not-allowed-error';
+import { ResourceNotFoundError } from '../../core/errors/resource-not-found-error';
+import { NotAllowedError } from '../../core/errors/not-allowed-error';
 
 export interface IDeleteMealRequest {
   userId: string;

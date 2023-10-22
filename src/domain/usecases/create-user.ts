@@ -1,4 +1,4 @@
-import { Either, left, right } from '@/domain/core/either';
+import { Either, left, right } from '@/core/either';
 import { User } from '@/domain/entities/User';
 import { IUsersRepository } from './ports/users-repository';
 import { StudentAlreadyExistsError } from './errors/student-already-exists-error';
