@@ -1,4 +1,4 @@
-import { InMemoryMealsRepository } from '@/adapters/database/in-memory-meals-repository';
+import { InMemoryMealsRepository } from '@/test/database/in-memory-meals-repository';
 import { FetchUserMealsUseCase, IFetchUserMealsRequest } from './fetch-user-meals';
 import { makeUser } from '@/test/factories/make-user';
 import { makeMeal } from '@/test/factories/make-meal';

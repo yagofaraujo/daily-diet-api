@@ -1,13 +1,16 @@
-import { InMemoryUsersRepository } from '@/adapters/database/in-memory-users-repository';
+import { InMemoryUsersRepository } from '@/test/database/in-memory-users-repository';
 import { CreateUserUseCase, ICreateUserRequest } from './create-user';
+import { FakeHasher } from '@/test/cryptography/fake-hasher';
 
 let inMemoryUsersRepository: InMemoryUsersRepository;
+let fakeHasher: FakeHasher;
 let sut: CreateUserUseCase;
 
 describe('Create User Use Case', () => {
   beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository();
-    sut = new CreateUserUseCase(inMemoryUsersRepository);
+    fakeHasher = new FakeHasher();
+    sut = new CreateUserUseCase(inMemoryUsersRepository, fakeHasher);
   });
 
   afterEach(() => {
@@ -29,6 +32,22 @@ describe('Create User Use Case', () => {
     expect(mockExecuteCreateNewUserUseCase).toHaveBeenCalledWith(useCasePayload);
 
     expect(result.isRight()).toBeTruthy();
-    expect(result.value?.user).toEqual(inMemoryUsersRepository.items[0]);
+
+    if (result.isRight()) {
+      expect(result.value?.user).toEqual(inMemoryUsersRepository.items[0]);
+    }
+  });
+
+  it('Should hash student password upon registration', async () => {
+    const result = await sut.execute({
+      name: 'John Doe',
+      email: 'johndoe@example.com',
+      password: '123456',
+    });
+
+    const hashedPassword = await fakeHasher.hash('123456');
+
+    expect(result.isRight()).toBe(true);
+    expect(inMemoryUsersRepository.items[0].password).toEqual(hashedPassword);
   });
 });
