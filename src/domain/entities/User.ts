@@ -5,6 +5,7 @@ import { Optional } from '@/domain/core/types/optional';
 export interface UserProps {
   name: string;
   email: string;
+  password: string;
   createdAt: Date;
   updatedAt?: Date;
 }
@@ -30,6 +31,10 @@ export class User extends Entity<UserProps> {
   set email(email: string) {
     this.props.email = email;
     this.touch();
+  }
+
+  get password() {
+    return this.props.password;
   }
 
   get createdAt() {
