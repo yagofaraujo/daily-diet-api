@@ -11,6 +11,12 @@ Content-Type: application/json
   "password": "123456"
 }
 
+###
+
+# @name test
+GET {{baseUrl}}/users
+Content-Type: application/json
+
 ### ROTA AUTORIZADA
 
 # # @name create_question

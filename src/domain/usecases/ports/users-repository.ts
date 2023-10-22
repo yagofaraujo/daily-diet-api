@@ -1,6 +1,6 @@
 import { User } from '@/domain/entities/User';
 
-export interface IUsersRepository {
-  create(user: User): Promise<void>;
-  findByEmail(email: string): Promise<User | null>;
+export abstract class IUsersRepository {
+  abstract create(user: User): Promise<void>;
+  abstract findByEmail(email: string): Promise<User | null>;
 }
