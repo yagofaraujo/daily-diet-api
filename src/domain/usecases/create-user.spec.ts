@@ -20,6 +20,7 @@ describe('Create User Use Case', () => {
     const useCasePayload: ICreateUserRequest = {
       name: 'Test',
       email: 'testuser@email.com',
+      password: '123456',
     };
 
     const result = await sut.execute(useCasePayload);

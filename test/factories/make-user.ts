@@ -6,6 +6,7 @@ export function makeUser(override: Partial<UserProps> = {}, id?: UniqueEntityId)
     {
       name: 'Fake User',
       email: 'fake@user.com',
+      password: '123456',
       ...override,
     },
     id,

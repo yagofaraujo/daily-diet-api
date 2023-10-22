@@ -5,6 +5,7 @@ import { IUsersRepository } from './ports/users-repository';
 export interface ICreateUserRequest {
   name: string;
   email: string;
+  password: string;
 }
 
 type ICreateUserResponse = Either<
@@ -17,10 +18,11 @@ type ICreateUserResponse = Either<
 export class CreateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
-  async execute({ name, email }: ICreateUserRequest): Promise<ICreateUserResponse> {
+  async execute({ name, email, password }: ICreateUserRequest): Promise<ICreateUserResponse> {
     const user = User.create({
       name,
       email,
+      password,
     });
 
     await this.usersRepository.create(user);
