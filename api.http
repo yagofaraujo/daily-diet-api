@@ -13,8 +13,8 @@ Content-Type: application/json
 
 ###
 
-# @name test
-GET {{baseUrl}}/users
+# @name authenticate_user
+POST {{baseUrl}}/auth
 Content-Type: application/json
 
 ### ROTA AUTORIZADA
