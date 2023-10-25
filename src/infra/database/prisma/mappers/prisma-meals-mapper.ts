@@ -11,6 +11,8 @@ export class PrismaMealsMapper {
         description: raw.description,
         date: raw.date,
         isOnUserDiet: raw.isOnUserDiet,
+        createdAt: raw.createdAt,
+        updatedAt: raw.updatedAt,
       },
       new UniqueEntityId(raw.id),
     );

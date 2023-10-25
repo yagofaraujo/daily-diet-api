@@ -9,7 +9,7 @@ export interface MealProps {
   date: Date;
   isOnUserDiet: boolean;
   createdAt: Date;
-  updatedAt?: Date;
+  updatedAt?: Date | null;
 }
 
 export class Meal extends Entity<MealProps> {
