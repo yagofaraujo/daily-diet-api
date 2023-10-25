@@ -1,15 +1,15 @@
 import { CreateMealUseCase } from '@/domain/usecases/create-meal';
-import { Body, Controller, HttpCode, Post, UseGuards, UsePipes } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
 import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard';
+import { CurrentUser } from '@/infra/auth/current-user-decorator';
+import { JwtTokenPayload } from '@/infra/auth/jwt.strategy';
 
 const createMealBodySchema = z.object({
-  userId: z.string().uuid(),
   name: z.string(),
   description: z.string(),
   date: z.string().datetime(),
-  // .transform((str) => new Date(str)),
   isOnUserDiet: z.boolean(),
 });
 
@@ -22,12 +22,14 @@ export class CreateMealController {
 
   @Post()
   @HttpCode(201)
-  @UsePipes(new ZodValidationPipe(createMealBodySchema))
-  async handle(@Body() body: CreateMealBodySchema) {
-    const { userId, name, description, date, isOnUserDiet } = body;
+  async handle(
+    @Body(new ZodValidationPipe(createMealBodySchema)) body: CreateMealBodySchema,
+    @CurrentUser() user: JwtTokenPayload,
+  ) {
+    const { name, description, date, isOnUserDiet } = body;
 
     await this.createMealUseCase.execute({
-      userId,
+      userId: user.sub,
       name,
       description,
       date: new Date(date),

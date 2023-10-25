@@ -1,14 +1,6 @@
 import { CreateUserUseCase } from '@/domain/usecases/create-user';
 import { StudentAlreadyExistsError } from '@/domain/usecases/errors/student-already-exists-error';
-import {
-  Body,
-  ConflictException,
-  Controller,
-  HttpCode,
-  InternalServerErrorException,
-  Post,
-  UsePipes,
-} from '@nestjs/common';
+import { Body, ConflictException, Controller, HttpCode, InternalServerErrorException, Post } from '@nestjs/common';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
 
@@ -26,8 +18,7 @@ export class CreateUserController {
 
   @Post()
   @HttpCode(201)
-  @UsePipes(new ZodValidationPipe(createUserBodySchema))
-  async handle(@Body() body: CreateUserBodySchema) {
+  async handle(@Body(new ZodValidationPipe(createUserBodySchema)) body: CreateUserBodySchema) {
     const { name, email, password } = createUserBodySchema.parse(body);
 
     const result = await this.createUserUseCase.execute({
