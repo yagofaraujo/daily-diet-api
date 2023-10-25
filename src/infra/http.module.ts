@@ -12,6 +12,10 @@ import { IUsersRepository } from '@/domain/usecases/contracts/repositories/users
 import { IHashGenerator } from '@/domain/usecases/contracts/cryptography/hash-generator';
 import { PrismaUsersRepository } from './database/prisma/repositories/prisma-users-repository';
 import { BcryptHasher } from './cryptography/bcrypt-hasher';
+import { AuthenticateUserUseCase } from '@/domain/usecases/authenticate-user';
+import { IHashComparer } from '@/domain/usecases/contracts/cryptography/hash-compare';
+import { IEncrypter } from '@/domain/usecases/contracts/cryptography/encrypter';
+import { JwtEncrypter } from './cryptography/jwt-encrypter';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -23,6 +27,12 @@ import { BcryptHasher } from './cryptography/bcrypt-hasher';
       useFactory: (usersRepository: IUsersRepository, hashGenerator: IHashGenerator) =>
         new CreateUserUseCase(usersRepository, hashGenerator),
       inject: [PrismaUsersRepository, BcryptHasher],
+    },
+    {
+      provide: AuthenticateUserUseCase,
+      useFactory: (usersRepository: IUsersRepository, hashGenerator: IHashComparer, encrypter: IEncrypter) =>
+        new AuthenticateUserUseCase(usersRepository, hashGenerator, encrypter),
+      inject: [PrismaUsersRepository, BcryptHasher, JwtEncrypter],
     },
     CreateMealUseCase,
     FetchUserMealsUseCase,
