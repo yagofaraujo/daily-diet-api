@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:3333
-# @authToken = {{authenticate.response.body.access_token}}
+@authToken = {{authenticate_user.response.body.access_token}}
 
 # @name create_user
 POST {{baseUrl}}/users
@@ -22,14 +22,17 @@ Content-Type: application/json
   "password": "123456"
 }
 
-### ROTA AUTORIZADA
+###
 
-# # @name create_question
-# POST {{baseUrl}}/questions
-# Content-Type: application/json
-# Authorization: Bearer {{authToken}}
+# @name create_meal
+POST {{baseUrl}}/meals
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
 
-# {
-#   "title": "Nova pergunta 2",
-#   "content": "Teste"
-# }
+{
+  "userId": "034f3167-fa72-4b4e-bbd7-7cbce1ad4690",
+  "name": "Refeição Teste 3",
+  "description": "Apenas uma refeição de teste 3",
+  "date": "2023-10-24T13:19:04.830Z",
+  "isOnUserDiet": false
+}
