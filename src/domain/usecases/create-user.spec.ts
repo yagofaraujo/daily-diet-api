@@ -38,7 +38,7 @@ describe('Create User Use Case', () => {
     }
   });
 
-  it('Should hash student password upon registration', async () => {
+  it('Should hash user password upon registration', async () => {
     const result = await sut.execute({
       name: 'John Doe',
       email: 'johndoe@example.com',

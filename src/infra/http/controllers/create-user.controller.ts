@@ -1,8 +1,8 @@
 import { CreateUserUseCase } from '@/domain/usecases/create-user';
-import { StudentAlreadyExistsError } from '@/domain/usecases/errors/student-already-exists-error';
 import { Body, ConflictException, Controller, HttpCode, InternalServerErrorException, Post } from '@nestjs/common';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
+import { UserAlreadyExistsError } from '@/domain/usecases/errors/user-already-exists-error';
 
 const createUserBodySchema = z.object({
   name: z.string(),
@@ -31,7 +31,7 @@ export class CreateUserController {
       const error = result.value;
 
       switch (error.constructor) {
-        case StudentAlreadyExistsError:
+        case UserAlreadyExistsError:
           throw new ConflictException(error.message);
         default:
           throw new InternalServerErrorException('Unexpected Error');

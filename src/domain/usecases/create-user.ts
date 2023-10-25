@@ -1,6 +1,6 @@
 import { Either, left, right } from '@/core/either';
 import { User } from '@/domain/entities/User';
-import { StudentAlreadyExistsError } from './errors/student-already-exists-error';
+import { UserAlreadyExistsError } from './errors/user-already-exists-error';
 import { IHashGenerator } from './contracts/cryptography/hash-generator';
 import { IUsersRepository } from './contracts/repositories/users-repository';
 
@@ -11,7 +11,7 @@ export interface ICreateUserRequest {
 }
 
 type ICreateUserResponse = Either<
-  StudentAlreadyExistsError,
+  UserAlreadyExistsError,
   {
     user: User;
   }
@@ -24,10 +24,10 @@ export class CreateUserUseCase {
   ) {}
 
   async execute({ name, email, password }: ICreateUserRequest): Promise<ICreateUserResponse> {
-    const studentWithSameEmail = await this.usersRepository.findByEmail(email);
+    const userWithSameEmail = await this.usersRepository.findByEmail(email);
 
-    if (studentWithSameEmail) {
-      return left(new StudentAlreadyExistsError(email));
+    if (userWithSameEmail) {
+      return left(new UserAlreadyExistsError(email));
     }
 
     const hashedPassword = await this.hashGenerator.hash(password);
