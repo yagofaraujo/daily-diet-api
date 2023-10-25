@@ -1,8 +1,8 @@
 import { Either, left, right } from '@/core/either';
 import { User } from '@/domain/entities/User';
-import { IUsersRepository } from './ports/users-repository';
 import { StudentAlreadyExistsError } from './errors/student-already-exists-error';
-import { IHashGenerator } from './ports/cryptography/hash-generator';
+import { IHashGenerator } from './contracts/cryptography/hash-generator';
+import { IUsersRepository } from './contracts/repositories/users-repository';
 
 export interface ICreateUserRequest {
   name: string;

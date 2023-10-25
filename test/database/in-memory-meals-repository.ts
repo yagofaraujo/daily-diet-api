@@ -1,5 +1,5 @@
 import { Meal } from '@/domain/entities/Meal';
-import { IMealsRepository } from '@/domain/usecases/ports/meals-repository';
+import { IMealsRepository } from '@/domain/usecases/contracts/repositories/meals-repository';
 
 export class InMemoryMealsRepository implements IMealsRepository {
   public items: Meal[] = [];

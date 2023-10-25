@@ -1,4 +1,4 @@
-import { IHashGenerator } from '@/domain/usecases/ports/cryptography/hash-generator';
+import { IHashGenerator } from '@/domain/usecases/contracts/cryptography/hash-generator';
 import { hash } from 'bcryptjs';
 
 export class BcryptHasher implements IHashGenerator {

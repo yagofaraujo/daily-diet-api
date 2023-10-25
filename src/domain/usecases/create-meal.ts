@@ -1,7 +1,7 @@
 import { Either, right } from '@/core/either';
 import { UniqueEntityId } from '@/core/entities/value-objects/unique-entity-id';
 import { Meal } from '@/domain/entities/Meal';
-import { IMealsRepository } from './ports/meals-repository';
+import { IMealsRepository } from './contracts/repositories/meals-repository';
 import { Injectable } from '@nestjs/common';
 
 export interface ICreateMealRequest {

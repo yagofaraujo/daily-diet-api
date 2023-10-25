@@ -8,9 +8,10 @@ import { CreateMealUseCase } from '@/domain/usecases/create-meal';
 import { CreateMealController } from './http/controllers/create-meal.controller';
 import { FetchUserMealsUseCase } from '@/domain/usecases/fetch-user-meals';
 import { FetchUserMealsController } from './http/controllers/fetch-user-meals.controller';
-import { IUsersRepository } from '@/domain/usecases/ports/users-repository';
-import { IHashGenerator } from '@/domain/usecases/ports/cryptography/hash-generator';
+import { IUsersRepository } from '@/domain/usecases/contracts/repositories/users-repository';
+import { IHashGenerator } from '@/domain/usecases/contracts/cryptography/hash-generator';
 import { PrismaUsersRepository } from './database/prisma/repositories/prisma-users-repository';
+import { BcryptHasher } from './cryptography/bcrypt-hasher';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -21,7 +22,7 @@ import { PrismaUsersRepository } from './database/prisma/repositories/prisma-use
       provide: CreateUserUseCase,
       useFactory: (usersRepository: IUsersRepository, hashGenerator: IHashGenerator) =>
         new CreateUserUseCase(usersRepository, hashGenerator),
-      inject: [PrismaUsersRepository, IHashGenerator],
+      inject: [PrismaUsersRepository, BcryptHasher],
     },
     CreateMealUseCase,
     FetchUserMealsUseCase,

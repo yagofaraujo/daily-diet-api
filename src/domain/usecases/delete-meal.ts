@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/core/either';
-import { IMealsRepository } from './ports/meals-repository';
+import { IMealsRepository } from './contracts/repositories/meals-repository';
 import { ResourceNotFoundError } from '../../core/errors/resource-not-found-error';
 import { NotAllowedError } from '../../core/errors/not-allowed-error';
 

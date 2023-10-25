@@ -1,10 +1,8 @@
 import { User } from '@/domain/entities/User';
-import { IUsersRepository } from '@/domain/usecases/ports/users-repository';
+import { IUsersRepository } from '@/domain/usecases/contracts/repositories/users-repository';
 import { PrismaService } from '../prisma.service';
 import { PrismaUserMapper } from '../mappers/prisma-user-mapper';
-import { Injectable } from '@nestjs/common';
 
-@Injectable()
 export class PrismaUsersRepository implements IUsersRepository {
   constructor(private prisma: PrismaService) {}
 

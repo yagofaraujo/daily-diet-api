@@ -1,5 +1,5 @@
 import { User } from '@/domain/entities/User';
-import { IUsersRepository } from '@/domain/usecases/ports/users-repository';
+import { IUsersRepository } from '@/domain/usecases/contracts/repositories/users-repository';
 
 export class InMemoryUsersRepository implements IUsersRepository {
   public items: User[] = [];

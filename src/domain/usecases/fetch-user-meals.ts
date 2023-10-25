@@ -1,6 +1,6 @@
 import { Either, right } from '@/core/either';
 import { Meal } from '@/domain/entities/Meal';
-import { IMealsRepository } from './ports/meals-repository';
+import { IMealsRepository } from './contracts/repositories/meals-repository';
 import { Injectable } from '@nestjs/common';
 import { PaginationParams } from '@/core/types/pagination-params';
 
