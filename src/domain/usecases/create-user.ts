@@ -3,7 +3,6 @@ import { User } from '@/domain/entities/User';
 import { IUsersRepository } from './ports/users-repository';
 import { StudentAlreadyExistsError } from './errors/student-already-exists-error';
 import { IHashGenerator } from './ports/cryptography/hash-generator';
-import { Injectable } from '@nestjs/common';
 
 export interface ICreateUserRequest {
   name: string;
@@ -17,7 +16,7 @@ type ICreateUserResponse = Either<
     user: User;
   }
 >;
-@Injectable()
+
 export class CreateUserUseCase {
   constructor(
     private usersRepository: IUsersRepository,
