@@ -1,8 +1,7 @@
 import { CreateMealUseCase } from '@/domain/usecases/create-meal';
-import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
-import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard';
 import { CurrentUser } from '@/infra/auth/current-user-decorator';
 import { JwtTokenPayload } from '@/infra/auth/jwt.strategy';
 
@@ -16,7 +15,10 @@ const createMealBodySchema = z.object({
 type CreateMealBodySchema = z.infer<typeof createMealBodySchema>;
 
 @Controller('/meals')
-@UseGuards(JwtAuthGuard)
+/* MIDDLEWARE DE AUTENTICAÇÃO:
+  (por padrão, todas as rotas da aplicação precisa de autenticação,
+  com exceção das que usam o decorator "PublicRoute()")
+@UseGuards(JwtAuthGuard) */
 export class CreateMealController {
   constructor(private createMealUseCase: CreateMealUseCase) {}
 

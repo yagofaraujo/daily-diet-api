@@ -3,6 +3,7 @@ import { Body, ConflictException, Controller, HttpCode, InternalServerErrorExcep
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
 import { UserAlreadyExistsError } from '@/domain/usecases/errors/user-already-exists-error';
+import { PublicRoute } from '@/infra/auth/public-route-decorator';
 
 const createUserBodySchema = z.object({
   name: z.string(),
@@ -13,6 +14,7 @@ const createUserBodySchema = z.object({
 type CreateUserBodySchema = z.infer<typeof createUserBodySchema>;
 
 @Controller('/users')
+@PublicRoute()
 export class CreateUserController {
   constructor(private createUserUseCase: CreateUserUseCase) {}
 

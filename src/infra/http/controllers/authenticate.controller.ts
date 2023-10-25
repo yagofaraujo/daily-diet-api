@@ -11,6 +11,7 @@ import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
 import { AuthenticateUserUseCase } from '@/domain/usecases/authenticate-user';
 import { WrongCredentialsError } from '@/domain/usecases/errors/wrong-credentials-error';
+import { PublicRoute } from '@/infra/auth/public-route-decorator';
 
 const authenticateUserBodySchema = z.object({
   email: z.string().email(),
@@ -20,6 +21,7 @@ const authenticateUserBodySchema = z.object({
 type AuthenticateUserBodySchema = z.infer<typeof authenticateUserBodySchema>;
 
 @Controller('/auth')
+@PublicRoute()
 export class AuthenticateUserController {
   constructor(private authenticateUserUseCase: AuthenticateUserUseCase) {}
 
@@ -41,8 +43,6 @@ export class AuthenticateUserController {
           throw new InternalServerErrorException('Unexpected Error');
       }
     }
-
-    // const accessToken = this.jwtService.sign({ sub: user.id });
 
     const { accessToken } = result.value;
 
