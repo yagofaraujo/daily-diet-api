@@ -6,10 +6,12 @@ import { CryptographyModule } from './cryptography.module';
 import { AuthenticateUserController } from './http/controllers/authenticate.controller';
 import { CreateMealUseCase } from '@/domain/usecases/create-meal';
 import { CreateMealController } from './http/controllers/create-meal.controller';
+import { FetchUserMealsUseCase } from '@/domain/usecases/fetch-user-meals';
+import { FetchUserMealsController } from './http/controllers/fetch-user-meals.controller';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
-  controllers: [CreateUserController, AuthenticateUserController, CreateMealController],
-  providers: [CreateUserUseCase, CreateMealUseCase],
+  controllers: [CreateUserController, AuthenticateUserController, CreateMealController, FetchUserMealsController],
+  providers: [CreateUserUseCase, CreateMealUseCase, FetchUserMealsUseCase],
 })
 export class HttpModule {}

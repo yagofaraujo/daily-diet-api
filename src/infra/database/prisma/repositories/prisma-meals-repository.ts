@@ -3,6 +3,7 @@ import { IMealsRepository } from '@/domain/usecases/ports/meals-repository';
 import { PrismaService } from '../prisma.service';
 import { Injectable } from '@nestjs/common';
 import { PrismaMealsMapper } from '../mappers/prisma-meals-mapper';
+import { PaginationParams } from '@/core/types/pagination-params';
 
 @Injectable()
 export class PrismaMealsRepository implements IMealsRepository {
@@ -49,12 +50,28 @@ export class PrismaMealsRepository implements IMealsRepository {
     return PrismaMealsMapper.toDomain(meal);
   }
 
-  async findManyByUserId(userId: string): Promise<Meal[]> {
-    const meals = await this.prisma.meal.findMany({
-      where: {
-        userId,
-      },
-    });
+  async findManyByUserId(userId: string, paginationParams?: PaginationParams): Promise<Meal[]> {
+    const ITEMS_PER_PAGE = 1;
+
+    const meals = paginationParams
+      ? await this.prisma.meal.findMany({
+          where: {
+            userId,
+          },
+          orderBy: {
+            date: 'desc',
+          },
+          take: ITEMS_PER_PAGE,
+          skip: (paginationParams.page - 1) * ITEMS_PER_PAGE,
+        })
+      : await this.prisma.meal.findMany({
+          where: {
+            userId,
+          },
+          orderBy: {
+            date: 'desc',
+          },
+        });
 
     return meals.map(PrismaMealsMapper.toDomain);
   }
