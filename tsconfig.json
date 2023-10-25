@@ -6,7 +6,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
+    "target": "es2022",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
@@ -15,7 +15,7 @@
       "@/test/*": ["./test/*"]
     },  
     "types": [
-      "vitest/globals"
+      "vitest/globals" // Usar vitest sem precisar importar nos arquivos de testes
     ],    
     "incremental": true,
     "skipLibCheck": true,
