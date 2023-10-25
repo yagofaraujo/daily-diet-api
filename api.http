@@ -17,6 +17,11 @@ Content-Type: application/json
 POST {{baseUrl}}/auth
 Content-Type: application/json
 
+{
+  "email": "teste@teste.com.br",
+  "password": "123456"
+}
+
 ### ROTA AUTORIZADA
 
 # # @name create_question
