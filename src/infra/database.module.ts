@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PrismaService } from './database/prisma/prisma.service';
 import { PrismaUsersRepository } from './database/prisma/repositories/prisma-users-repository';
-import { IUsersRepository } from '@/domain/usecases/ports/users-repository';
 import { IMealsRepository } from '@/domain/usecases/ports/meals-repository';
 import { PrismaMealsRepository } from './database/prisma/repositories/prisma-meals-repository';
 
@@ -9,14 +8,17 @@ import { PrismaMealsRepository } from './database/prisma/repositories/prisma-mea
   providers: [
     PrismaService,
     {
-      provide: IUsersRepository,
-      useClass: PrismaUsersRepository,
+      provide: PrismaUsersRepository,
+      useFactory: (prisma: PrismaService) => new PrismaUsersRepository(prisma),
+      inject: [PrismaService],
     },
+    // Outra forma de fazer injeção de dependência -> transformando a interface em uma classe abstrata
+    // Desta forma, o prisma consegue se organizar internamente para injetar as dependências que são necessárias
     {
       provide: IMealsRepository,
       useClass: PrismaMealsRepository,
     },
   ],
-  exports: [PrismaService, IUsersRepository, IMealsRepository],
+  exports: [PrismaService, PrismaUsersRepository, IMealsRepository],
 })
 export class DatabaseModule {}

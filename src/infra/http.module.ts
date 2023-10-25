@@ -10,6 +10,7 @@ import { FetchUserMealsUseCase } from '@/domain/usecases/fetch-user-meals';
 import { FetchUserMealsController } from './http/controllers/fetch-user-meals.controller';
 import { IUsersRepository } from '@/domain/usecases/ports/users-repository';
 import { IHashGenerator } from '@/domain/usecases/ports/cryptography/hash-generator';
+import { PrismaUsersRepository } from './database/prisma/repositories/prisma-users-repository';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -20,7 +21,7 @@ import { IHashGenerator } from '@/domain/usecases/ports/cryptography/hash-genera
       provide: CreateUserUseCase,
       useFactory: (usersRepository: IUsersRepository, hashGenerator: IHashGenerator) =>
         new CreateUserUseCase(usersRepository, hashGenerator),
-      inject: [IUsersRepository, IHashGenerator],
+      inject: [PrismaUsersRepository, IHashGenerator],
     },
     CreateMealUseCase,
     FetchUserMealsUseCase,
