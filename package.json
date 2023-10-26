@@ -21,6 +21,7 @@
     "test:e2e:watch": "vitest --config ./vitest.config.e2e.ts"
   },
   "dependencies": {
+    "@google-cloud/storage": "^7.4.0",
     "@nestjs/common": "^10.2.7",
     "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.0.0",
