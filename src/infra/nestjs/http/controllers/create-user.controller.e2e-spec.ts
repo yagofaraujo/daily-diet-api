@@ -24,6 +24,6 @@ describe('Create User (E2E)', async () => {
   it('[POST] /users', async () => {
     const user = await userFactory.makePrismaUser();
 
-    console.log(user);
+    expect(user).toBeTruthy();
   });
 });

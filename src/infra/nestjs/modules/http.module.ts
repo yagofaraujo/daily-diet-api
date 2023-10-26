@@ -18,10 +18,17 @@ import { IEncrypter } from '@/domain/usecases/contracts/cryptography/encrypter';
 import { JwtEncrypter } from '../../cryptography/jwt-encrypter';
 import { IMealsRepository } from '@/domain/usecases/contracts/repositories/meals-repository';
 import { PrismaMealsRepository } from '../../database/prisma/repositories/prisma-meals-repository';
+import { UploadController } from '../http/controllers/upload.controller';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
-  controllers: [CreateUserController, AuthenticateUserController, CreateMealController, FetchUserMealsController],
+  controllers: [
+    CreateUserController,
+    AuthenticateUserController,
+    CreateMealController,
+    FetchUserMealsController,
+    UploadController,
+  ],
   providers: [
     {
       provide: CreateUserUseCase,

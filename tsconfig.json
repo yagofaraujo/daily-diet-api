@@ -15,7 +15,8 @@
       "@/test/*": ["./test/*"]
     },  
     "types": [
-      "vitest/globals" // Usar vitest sem precisar importar nos arquivos de testes
+      "vitest/globals", // Usar vitest sem precisar importar nos arquivos de testes
+      "multer"
     ],    
     "incremental": true,
     "skipLibCheck": true,
