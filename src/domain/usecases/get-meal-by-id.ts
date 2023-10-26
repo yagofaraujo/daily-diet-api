@@ -1,8 +1,8 @@
 import { Either, left, right } from '@/core/either';
 import { Meal } from '@/domain/entities/Meal';
 import { IMealsRepository } from './contracts/repositories/meals-repository';
-import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
-import { NotAllowedError } from '@/core/errors/not-allowed-error';
+import { ResourceNotFoundError } from '@/domain/usecases/errors/resource-not-found-error';
+import { NotAllowedError } from '@/domain/usecases/errors/not-allowed-error';
 
 export interface IGetMealByIdRequest {
   userId: string;

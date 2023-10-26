@@ -3,8 +3,8 @@ import { DeleteMealUseCase, IDeleteMealRequest } from './delete-meal';
 import { makeUser } from '@/test/factories/make-user';
 import { makeMeal } from '@/test/factories/make-meal';
 import { UniqueEntityId } from '@/core/entities/value-objects/unique-entity-id';
-import { NotAllowedError } from '@/core/errors/not-allowed-error';
-import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
+import { NotAllowedError } from '@/domain/usecases/errors/not-allowed-error';
+import { ResourceNotFoundError } from '@/domain/usecases/errors/resource-not-found-error';
 
 let inMemoryMealsRepository: InMemoryMealsRepository;
 let sut: DeleteMealUseCase;

@@ -2,9 +2,9 @@ import { InMemoryMealsRepository } from '@/test/database/in-memory-meals-reposit
 import { GetMealByIdUseCase, IGetMealByIdRequest } from './get-meal-by-id';
 import { makeUser } from '@/test/factories/make-user';
 import { makeMeal } from '@/test/factories/make-meal';
-import { ResourceNotFoundError } from '../../core/errors/resource-not-found-error';
+import { ResourceNotFoundError } from './errors/resource-not-found-error';
 import { UniqueEntityId } from '../../core/entities/value-objects/unique-entity-id';
-import { NotAllowedError } from '../../core/errors/not-allowed-error';
+import { NotAllowedError } from './errors/not-allowed-error';
 let inMemoryMealsRepository: InMemoryMealsRepository;
 let sut: GetMealByIdUseCase;
 
