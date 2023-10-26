@@ -1,11 +1,9 @@
 import { Meal } from '@/domain/entities/Meal';
 import { IMealsRepository } from '@/domain/usecases/contracts/repositories/meals-repository';
 import { PrismaService } from '../prisma.service';
-import { Injectable } from '@nestjs/common';
 import { PrismaMealsMapper } from '../mappers/prisma-meals-mapper';
 import { PaginationParams } from '@/core/types/pagination-params';
 
-@Injectable()
 export class PrismaMealsRepository implements IMealsRepository {
   constructor(private prisma: PrismaService) {}
 

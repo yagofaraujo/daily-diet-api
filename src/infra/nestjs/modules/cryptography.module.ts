@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { BcryptHasher } from './cryptography/bcrypt-hasher';
-import { JwtEncrypter } from './cryptography/jwt-encrypter';
+import { BcryptHasher } from '../../cryptography/bcrypt-hasher';
+import { JwtEncrypter } from '../../cryptography/jwt-encrypter';
 import { JwtService } from '@nestjs/jwt';
 
 @Module({

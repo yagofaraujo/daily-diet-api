@@ -2,7 +2,6 @@ import { Either, right } from '@/core/either';
 import { UniqueEntityId } from '@/core/entities/value-objects/unique-entity-id';
 import { Meal } from '@/domain/entities/Meal';
 import { IMealsRepository } from './contracts/repositories/meals-repository';
-import { Injectable } from '@nestjs/common';
 
 export interface ICreateMealRequest {
   userId: string;
@@ -19,7 +18,6 @@ type ICreateMealResponse = Either<
   }
 >;
 
-@Injectable()
 export class CreateMealUseCase {
   constructor(private mealsRepository: IMealsRepository) {}
 

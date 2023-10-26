@@ -11,7 +11,7 @@ import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
 import { AuthenticateUserUseCase } from '@/domain/usecases/authenticate-user';
 import { WrongCredentialsError } from '@/domain/usecases/errors/wrong-credentials-error';
-import { PublicRoute } from '@/infra/auth/public-route-decorator';
+import { PublicRoute } from '@/infra/nestjs/auth/public-route-decorator';
 
 const authenticateUserBodySchema = z.object({
   email: z.string().email(),

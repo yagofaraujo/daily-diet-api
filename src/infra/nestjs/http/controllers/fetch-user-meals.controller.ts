@@ -1,8 +1,8 @@
 import { FetchUserMealsUseCase } from '@/domain/usecases/fetch-user-meals';
-import { CurrentUser } from '@/infra/auth/current-user-decorator';
-import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard';
-import { JwtTokenPayload } from '@/infra/auth/jwt.strategy';
-import { Controller, Get, InternalServerErrorException, Query, UseGuards } from '@nestjs/common';
+import { CurrentUser } from '@/infra/nestjs/auth/current-user-decorator';
+import { JwtAuthGuard } from '@/infra/nestjs/auth/jwt-auth.guard';
+import { JwtTokenPayload } from '@/infra/nestjs/auth/jwt.strategy';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
 import { z } from 'zod';
 import { DEFAULT_PAGE } from '@/core/types/pagination-params';
@@ -29,12 +29,10 @@ export class FetchUserMealsController {
       paginationParams: page ? { page } : undefined,
     });
 
-    if (result.isLeft()) {
-      throw new InternalServerErrorException('Unexpected Error');
+    if (result.isRight()) {
+      const meals = result.value.meals;
+
+      return { meals: meals.map(UserMealsPresenter.toHTTP) };
     }
-
-    const meals = result.value.meals;
-
-    return { meals: meals.map(UserMealsPresenter.toHTTP) };
   }
 }

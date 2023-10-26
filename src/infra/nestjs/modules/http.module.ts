@@ -1,27 +1,28 @@
 import { Module } from '@nestjs/common';
-import { CreateUserController } from './http/controllers/create-user.controller';
-import { CreateUserUseCase } from '../domain/usecases/create-user';
+import { CreateUserController } from '../http/controllers/create-user.controller';
+import { CreateUserUseCase } from '../../../domain/usecases/create-user';
 import { DatabaseModule } from './database.module';
 import { CryptographyModule } from './cryptography.module';
-import { AuthenticateUserController } from './http/controllers/authenticate.controller';
+import { AuthenticateUserController } from '../http/controllers/authenticate.controller';
 import { CreateMealUseCase } from '@/domain/usecases/create-meal';
-import { CreateMealController } from './http/controllers/create-meal.controller';
+import { CreateMealController } from '../http/controllers/create-meal.controller';
 import { FetchUserMealsUseCase } from '@/domain/usecases/fetch-user-meals';
-import { FetchUserMealsController } from './http/controllers/fetch-user-meals.controller';
+import { FetchUserMealsController } from '../http/controllers/fetch-user-meals.controller';
 import { IUsersRepository } from '@/domain/usecases/contracts/repositories/users-repository';
 import { IHashGenerator } from '@/domain/usecases/contracts/cryptography/hash-generator';
-import { PrismaUsersRepository } from './database/prisma/repositories/prisma-users-repository';
-import { BcryptHasher } from './cryptography/bcrypt-hasher';
+import { PrismaUsersRepository } from '../../database/prisma/repositories/prisma-users-repository';
+import { BcryptHasher } from '../../cryptography/bcrypt-hasher';
 import { AuthenticateUserUseCase } from '@/domain/usecases/authenticate-user';
 import { IHashComparer } from '@/domain/usecases/contracts/cryptography/hash-compare';
 import { IEncrypter } from '@/domain/usecases/contracts/cryptography/encrypter';
-import { JwtEncrypter } from './cryptography/jwt-encrypter';
+import { JwtEncrypter } from '../../cryptography/jwt-encrypter';
+import { IMealsRepository } from '@/domain/usecases/contracts/repositories/meals-repository';
+import { PrismaMealsRepository } from '../../database/prisma/repositories/prisma-meals-repository';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
   controllers: [CreateUserController, AuthenticateUserController, CreateMealController, FetchUserMealsController],
   providers: [
-    // Maneira de fazer injeção de dependência sem usar @Injectable() no caso de uso (camada de domínio)
     {
       provide: CreateUserUseCase,
       useFactory: (usersRepository: IUsersRepository, hashGenerator: IHashGenerator) =>
@@ -34,8 +35,16 @@ import { JwtEncrypter } from './cryptography/jwt-encrypter';
         new AuthenticateUserUseCase(usersRepository, hashGenerator, encrypter),
       inject: [PrismaUsersRepository, BcryptHasher, JwtEncrypter],
     },
-    CreateMealUseCase,
-    FetchUserMealsUseCase,
+    {
+      provide: CreateMealUseCase,
+      useFactory: (mealsRepository: IMealsRepository) => new CreateMealUseCase(mealsRepository),
+      inject: [PrismaMealsRepository],
+    },
+    {
+      provide: FetchUserMealsUseCase,
+      useFactory: (mealsRepository: IMealsRepository) => new FetchUserMealsUseCase(mealsRepository),
+      inject: [PrismaMealsRepository],
+    },
   ],
 })
 export class HttpModule {}

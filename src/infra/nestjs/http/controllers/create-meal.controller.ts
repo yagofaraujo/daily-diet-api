@@ -2,8 +2,8 @@ import { CreateMealUseCase } from '@/domain/usecases/create-meal';
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
-import { CurrentUser } from '@/infra/auth/current-user-decorator';
-import { JwtTokenPayload } from '@/infra/auth/jwt.strategy';
+import { CurrentUser } from '@/infra/nestjs/auth/current-user-decorator';
+import { JwtTokenPayload } from '@/infra/nestjs/auth/jwt.strategy';
 
 const createMealBodySchema = z.object({
   name: z.string(),
