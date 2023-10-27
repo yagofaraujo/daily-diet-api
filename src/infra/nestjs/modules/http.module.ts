@@ -19,9 +19,13 @@ import { JwtEncrypter } from '../../cryptography/jwt-encrypter';
 import { IMealsRepository } from '@/domain/usecases/contracts/repositories/meals-repository';
 import { PrismaMealsRepository } from '../../database/prisma/repositories/prisma-meals-repository';
 import { UploadController } from '../http/controllers/upload.controller';
+import { UploadFileUseCase } from '@/domain/usecases/upload-file';
+import { IUploader } from '@/domain/usecases/contracts/storage/uploader';
+import { GcpUploader } from '@/infra/storage/uploader';
+import { StorageModule } from './storage.module';
 
 @Module({
-  imports: [DatabaseModule, CryptographyModule],
+  imports: [DatabaseModule, CryptographyModule, StorageModule],
   controllers: [
     CreateUserController,
     AuthenticateUserController,
@@ -41,6 +45,11 @@ import { UploadController } from '../http/controllers/upload.controller';
       useFactory: (usersRepository: IUsersRepository, hashGenerator: IHashComparer, encrypter: IEncrypter) =>
         new AuthenticateUserUseCase(usersRepository, hashGenerator, encrypter),
       inject: [PrismaUsersRepository, BcryptHasher, JwtEncrypter],
+    },
+    {
+      provide: UploadFileUseCase,
+      useFactory: (uploader: IUploader) => new UploadFileUseCase(uploader),
+      inject: [GcpUploader],
     },
     {
       provide: CreateMealUseCase,

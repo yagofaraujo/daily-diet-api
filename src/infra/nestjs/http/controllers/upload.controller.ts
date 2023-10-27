@@ -1,6 +1,10 @@
+import { InvalidUploadFileTypeError } from '@/domain/usecases/errors/invalid-upload-file-type-error';
+import { UploadFileUseCase } from '@/domain/usecases/upload-file';
 import {
+  BadRequestException,
   Controller,
   FileTypeValidator,
+  InternalServerErrorException,
   MaxFileSizeValidator,
   ParseFilePipe,
   Post,
@@ -11,6 +15,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('/uploads')
 export class UploadController {
+  constructor(private uploadFileUseCase: UploadFileUseCase) {}
+
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   async handle(
@@ -28,6 +34,25 @@ export class UploadController {
     )
     file: Express.Multer.File,
   ) {
-    console.log(file);
+    const result = await this.uploadFileUseCase.execute({
+      fileName: file.originalname,
+      fileType: file.mimetype,
+      content: file.buffer,
+    });
+
+    if (result.isLeft()) {
+      const error = result.value;
+
+      switch (error.constructor) {
+        case InvalidUploadFileTypeError:
+          throw new BadRequestException(error.message);
+        default:
+          throw new InternalServerErrorException('Unexpected Error');
+      }
+    }
+
+    const { url } = result.value;
+
+    return { url };
   }
 }
