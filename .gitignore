@@ -4,7 +4,7 @@
 
 ## Variables 
 .env
-gcpkey.json
+.env.test
 
 # Logs
 logs
