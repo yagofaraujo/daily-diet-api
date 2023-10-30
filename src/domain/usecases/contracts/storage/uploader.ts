@@ -5,5 +5,5 @@ export interface IUploadParams {
 }
 
 export interface IUploader {
-  upload(params: IUploadParams): Promise<{ url: string }>;
+  upload(params: IUploadParams): Promise<{ storageFileName: string }>;
 }

@@ -13,7 +13,7 @@ export interface IUploadFileUseCaseRequest {
 type IUploadFileUseCaseResponse = Either<
   InvalidUploadFileTypeError,
   {
-    url: string;
+    storageFileName: string;
   }
 >;
 
@@ -27,10 +27,10 @@ export class UploadFileUseCase {
       return left(new InvalidUploadFileTypeError(fileType));
     }
 
-    const { url } = await this.uploader.upload({ fileName, fileType, content });
+    const { storageFileName } = await this.uploader.upload({ fileName, fileType, content });
 
     return right({
-      url,
+      storageFileName,
     });
   }
 }

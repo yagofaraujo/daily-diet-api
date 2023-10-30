@@ -51,8 +51,8 @@ export class UploadController {
       }
     }
 
-    const { url } = result.value;
+    const { storageFileName } = result.value;
 
-    return { url };
+    return { storageFileName };
   }
 }

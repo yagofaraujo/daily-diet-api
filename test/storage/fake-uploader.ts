@@ -3,20 +3,18 @@ import { randomUUID } from 'node:crypto';
 
 interface Upload {
   fileName: string;
-  url: string;
 }
 
 export class FakeUploader implements IUploader {
   public uploads: Upload[] = [];
 
-  async upload({ fileName }: IUploadParams): Promise<{ url: string }> {
-    const url = randomUUID().concat(fileName);
+  async upload({ fileName }: IUploadParams): Promise<{ storageFileName: string }> {
+    const uniqueName = randomUUID().concat(fileName);
 
     this.uploads.push({
-      fileName,
-      url,
+      fileName: uniqueName,
     });
 
-    return { url };
+    return { storageFileName: uniqueName };
   }
 }

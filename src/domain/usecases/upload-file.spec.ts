@@ -31,11 +31,11 @@ describe('Upload File Use Case', () => {
 
     expect(result.isRight()).toBeTruthy();
     expect(fakeUploader.uploads).toHaveLength(1);
-    expect(fakeUploader.uploads[0]).toEqual(
-      expect.objectContaining({
-        fileName: 'sample.png',
-      }),
-    );
+
+    if (result.isRight()) {
+      expect(fakeUploader.uploads[0]).toEqual(expect.objectContaining({ fileName: result.value.storageFileName }));
+      expect(fakeUploader.uploads[0].fileName.includes('sample.png')).toBeTruthy();
+    }
   });
 
   it('Should not be able to upload a file with invalid file type', async () => {
