@@ -9,7 +9,9 @@ services:
     ports:
       - '3333:3333'
     volumes:
-      - .:/app
+      - ./:/app
+    networks:
+      - main
     depends_on:
       - database
   database:
@@ -22,5 +24,10 @@ services:
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: daily-diet-database
       PGDATA: /data/postgres
+    networks:
+      - main
     volumes:
       - ./data/pg:/data/postgres
+
+networks:
+  main:

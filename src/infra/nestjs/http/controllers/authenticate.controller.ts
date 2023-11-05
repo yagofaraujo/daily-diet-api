@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   InternalServerErrorException,
   Post,
@@ -24,6 +25,12 @@ type AuthenticateUserBodySchema = z.infer<typeof authenticateUserBodySchema>;
 @PublicRoute()
 export class AuthenticateUserController {
   constructor(private authenticateUserUseCase: AuthenticateUserUseCase) {}
+
+  @Get()
+  async test() {
+    console.log('ola dsad as');
+    return 'Hello World!';
+  }
 
   @Post()
   @HttpCode(200)
