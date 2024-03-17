@@ -9,5 +9,7 @@ COPY prisma ./prisma/
 
 RUN npm install
 
+COPY . .
+
 EXPOSE 3333
 ENTRYPOINT [ "npm", "run", "start:dev" ]

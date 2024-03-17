@@ -2,6 +2,9 @@
 /dist
 /node_modules
 
+## Database data
+data
+
 ## Variables 
 .env
 .env.test
