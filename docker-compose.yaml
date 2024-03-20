@@ -29,7 +29,7 @@ services:
     networks:
       - main
     volumes:
-      - ./data/pg:/data/postgres
+      - ./data/pg/:/data/postgres
 
 networks:
   main:
