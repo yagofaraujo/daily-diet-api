@@ -12,7 +12,39 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20
-          # cache: 'npm'
-          # cache-dependency-path: .
+          cache: 'npm'
+
       - run: npm ci
       - run: npm run test
+
+  # toDo -> Implementar rotina para rodar os testes end-to-end
+  # run-e2e-tests:
+  #   name: Run E2E Tests
+  #   runs-on: ubuntu-latest
+
+  #   services:
+  #     postgres:
+  #       image: bitnami/postgresql
+  #       ports:
+  #         - 5432:5432
+  #       env:
+  #         POSTGRESQL_USERNAME: docker
+  #         POSTGRESQL_PASSWORD: docker
+  #         POSTGRESQL_DATABASE: test-database
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 20
+  #         cache: 'npm'
+
+  #     - run: npm ci
+  #     - run: npm run test:e2e
+  #       env:
+  #         JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}
+  #         JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY }}
+  #         GCP_PRIVATE_KEY: ${{ secrets.GCP_PRIVATE_KEY }}
+  #         GCP_CLIENT_EMAIL: ${{ secrets.GCP_CLIENT_EMAIL }}
+  #         GCP_BUCKET_NAME: ${{ secrets.GCP_BUCKET_NAME }}
+  #         DATABASE_URL: "postgresql://docker:docker@localhost:5432/test-database?schema=public"
+
