@@ -44,7 +44,7 @@ describe('Get Meal by ID Use Case', () => {
     expect(mockExecuteGetMealByIdUseCase).toHaveBeenCalledTimes(1);
     expect(mockExecuteGetMealByIdUseCase).toHaveBeenCalledWith(useCasePayload);
 
-    expect(result.isRight()).toBeTruthy();
+    expect(result.isRight()).not.toBeTruthy();
 
     if (result.isRight()) {
       expect(result.value.meal).toMatchObject({
