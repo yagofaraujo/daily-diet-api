@@ -16,24 +16,29 @@ export class GcpUploader implements IUploader {
   }
 
   async upload({ fileName, fileType, content }: IUploadParams): Promise<{ storageFileName: string }> {
-    const uniqueFileName = generateUniqueFileName(fileName);
+    try {
+      const uniqueFileName = generateUniqueFileName(fileName);
 
-    console.log('teste 1');
-    const bucket = this.storage.bucket(this.envService.get('GCP_BUCKET_NAME'));
-    console.log('teste 2');
+      console.log('teste 1');
+      const bucket = this.storage.bucket(this.envService.get('GCP_BUCKET_NAME'));
+      console.log('teste 2');
 
-    const file = bucket.file(uniqueFileName);
-    console.log('teste 3');
+      const file = bucket.file(uniqueFileName);
+      console.log('teste 3');
 
-    await file.save(content, {
-      public: true,
-      metadata: {
-        contentType: fileType,
-      },
-    });
-    console.log('teste 4');
+      await file.save(content, {
+        public: true,
+        metadata: {
+          contentType: fileType,
+        },
+      });
+      console.log('teste 4');
 
-    return { storageFileName: uniqueFileName };
+      return { storageFileName: uniqueFileName };
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 }
 
