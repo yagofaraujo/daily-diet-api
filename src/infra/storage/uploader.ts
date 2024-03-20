@@ -7,12 +7,15 @@ export class GcpUploader implements IUploader {
   private storage: Storage;
 
   constructor(private envService: EnvService) {
+    console.log('storage');
     this.storage = new Storage({
       credentials: {
         private_key: envService.get('GCP_PRIVATE_KEY'),
         client_email: envService.get('GCP_CLIENT_EMAIL'),
       },
     });
+
+    console.log('nao quebrou');
   }
 
   async upload({ fileName, fileType, content }: IUploadParams): Promise<{ storageFileName: string }> {

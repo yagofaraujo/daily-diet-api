@@ -28,9 +28,7 @@ describe('Upload files (E2E)', () => {
   test('[POST] /uploads', async () => {
     const user = await userFactory.makePrismaUser();
 
-    console.log('test');
     const accessToken = jwt.sign({ sub: user.id.toString() });
-    console.log('sign');
 
     const response = await request(app.getHttpServer())
       .post('/uploads')
