@@ -1,4 +1,4 @@
-name: continuous-integration
+name: continuous-integration-workflow
 
 on:
   pull_request
