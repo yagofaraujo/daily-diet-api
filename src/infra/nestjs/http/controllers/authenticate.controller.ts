@@ -28,7 +28,6 @@ export class AuthenticateUserController {
 
   @Get()
   async test() {
-    console.log('ola dsad as');
     return 'Hello World!';
   }
 

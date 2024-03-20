@@ -19,6 +19,7 @@ export class GcpUploader implements IUploader {
     const uniqueFileName = generateUniqueFileName(fileName);
 
     const bucket = this.storage.bucket(this.envService.get('GCP_BUCKET_NAME'));
+
     const file = bucket.file(uniqueFileName);
 
     await file.save(content, {
