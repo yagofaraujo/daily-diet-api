@@ -27,7 +27,7 @@ export class GcpUploader implements IUploader {
       const file = bucket.file(uniqueFileName);
       console.log('teste 3');
 
-      await file.save(content, {
+      await file.save(String(content), {
         public: true,
         metadata: {
           contentType: fileType,
