@@ -12,6 +12,8 @@ COPY prisma ./prisma
 
 RUN npm install
 
+##test
+
 COPY . .
 
 EXPOSE 3333
