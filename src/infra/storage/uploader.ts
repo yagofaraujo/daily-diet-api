@@ -9,7 +9,7 @@ export class GcpUploader implements IUploader {
   constructor(private envService: EnvService) {
     this.storage = new Storage({
       credentials: {
-        private_key: envService.get('GCP_PRIVATE_KEY'),
+        private_key: envService.get('GCP_PRIVATE_KEY').replace(/\\n/g, '\n'),
         client_email: envService.get('GCP_CLIENT_EMAIL'),
       },
     });
