@@ -39,10 +39,10 @@ jobs:
       - run: npm ci
       - run: npm run test:e2e
         env:
-          JWT_PRIVATE_KEY: testing
-          JWT_PUBLIC_KEY: testing
-          GCP_PRIVATE_KEY: testing
-          GCP_CLIENT_EMAIL: testing
-          GCP_BUCKET_NAME: testing
+          JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}
+          JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY }}
+          GCP_PRIVATE_KEY: ${{ secrets.GCP_PRIVATE_KEY }}
+          GCP_CLIENT_EMAIL: ${{ secrets.GCP_CLIENT_EMAIL }}
+          GCP_BUCKET_NAME: ${{ secrets.GCP_BUCKET_NAME }}
           DATABASE_URL: "postgresql://docker:docker@localhost:5432/test-database?schema=public"
 
