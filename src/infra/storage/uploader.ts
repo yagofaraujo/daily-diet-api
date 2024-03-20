@@ -7,22 +7,23 @@ export class GcpUploader implements IUploader {
   private storage: Storage;
 
   constructor(private envService: EnvService) {
-    console.log('storage');
     this.storage = new Storage({
       credentials: {
         private_key: envService.get('GCP_PRIVATE_KEY'),
         client_email: envService.get('GCP_CLIENT_EMAIL'),
       },
     });
-
-    console.log('nao quebrou');
   }
 
   async upload({ fileName, fileType, content }: IUploadParams): Promise<{ storageFileName: string }> {
     const uniqueFileName = generateUniqueFileName(fileName);
 
+    console.log('teste 1');
     const bucket = this.storage.bucket(this.envService.get('GCP_BUCKET_NAME'));
+    console.log('teste 2');
+
     const file = bucket.file(uniqueFileName);
+    console.log('teste 3');
 
     await file.save(content, {
       public: true,
@@ -30,6 +31,7 @@ export class GcpUploader implements IUploader {
         contentType: fileType,
       },
     });
+    console.log('teste 4');
 
     return { storageFileName: uniqueFileName };
   }
