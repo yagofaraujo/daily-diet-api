@@ -4,7 +4,7 @@ on:
   pull_request
 
 jobs:
-  run-unit-tests:
+  run-unit-tests-and-generate-coverage:
     name: Run Unit Tests
     runs-on: ubuntu-latest
     steps:
@@ -15,7 +15,20 @@ jobs:
           cache: 'npm'
 
       - run: npm ci
-      - run: npm run test
+      - run: npm run test:cov
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      
 
   # toDo -> Implementar rotina para rodar os testes end-to-end
   # run-e2e-tests:
