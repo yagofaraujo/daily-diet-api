@@ -21,6 +21,7 @@ export class GcpUploader implements IUploader {
 
       console.log('teste 1');
       const bucket = this.storage.bucket(this.envService.get('GCP_BUCKET_NAME'));
+      console.log(bucket);
       console.log('teste 2');
 
       const file = bucket.file(uniqueFileName);
