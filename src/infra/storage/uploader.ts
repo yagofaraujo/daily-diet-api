@@ -9,37 +9,27 @@ export class GcpUploader implements IUploader {
   constructor(private envService: EnvService) {
     this.storage = new Storage({
       credentials: {
-        private_key: envService.get('GCP_PRIVATE_KEY').replace(/\\n/g, '\n'),
+        private_key: envService.get('GCP_PRIVATE_KEY'),
         client_email: envService.get('GCP_CLIENT_EMAIL'),
       },
     });
   }
 
   async upload({ fileName, fileType, content }: IUploadParams): Promise<{ storageFileName: string }> {
-    try {
-      const uniqueFileName = generateUniqueFileName(fileName);
+    const uniqueFileName = generateUniqueFileName(fileName);
 
-      console.log('teste 1');
-      const bucket = this.storage.bucket(this.envService.get('GCP_BUCKET_NAME'));
-      console.log(bucket);
-      console.log('teste 2');
+    const bucket = this.storage.bucket(this.envService.get('GCP_BUCKET_NAME'));
 
-      const file = bucket.file(uniqueFileName);
-      console.log('teste 3');
+    const file = bucket.file(uniqueFileName);
 
-      await file.save(String(content), {
-        public: true,
-        metadata: {
-          contentType: fileType,
-        },
-      });
-      console.log('teste 4');
+    await file.save(String(content), {
+      public: true,
+      metadata: {
+        contentType: fileType,
+      },
+    });
 
-      return { storageFileName: uniqueFileName };
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+    return { storageFileName: uniqueFileName };
   }
 }
 
