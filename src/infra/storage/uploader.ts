@@ -22,7 +22,7 @@ export class GcpUploader implements IUploader {
 
     const file = bucket.file(uniqueFileName);
 
-    await file.save(String(content), {
+    await file.save(content, {
       public: true,
       metadata: {
         contentType: fileType,

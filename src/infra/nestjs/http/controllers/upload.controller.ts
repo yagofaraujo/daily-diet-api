@@ -34,7 +34,6 @@ export class UploadController {
     )
     file: Express.Multer.File,
   ) {
-    console.log('iniciando controller');
     const result = await this.uploadFileUseCase.execute({
       fileName: file.originalname,
       fileType: file.mimetype,
